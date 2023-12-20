@@ -1,0 +1,38 @@
+@use "./color.scss" as color;
+
+.App {
+	font-family: sans-serif;
+	text-align: center;
+	width: 100vw;
+	height: 100vh;
+}
+
+.reactflow-wrapper {
+	width: 100%;
+	height: 100%;
+}
+
+.sidebar {
+	.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiAccordion-root.MuiAccordion-rounded.MuiAccordion-gutters {
+		background-color: color.$sidebar;
+		box-shadow: none;
+		border-top: 1px solid rgba(black, 0.05);
+
+		.MuiButtonBase-root.MuiAccordionSummary-root.MuiAccordionSummary-gutters,
+		.MuiButtonBase-root.MuiAccordionSummary-root.Mui-expanded.MuiAccordionSummary-gutters {
+			border-bottom: 1px solid rgba(black, 0.05);
+		}
+
+		&::before {
+			background-color: transparent;
+		}
+
+		.MuiAccordionDetails-root {
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			column-gap: 5px;
+			row-gap: 10px;
+			place-items: center;
+		}
+	}
+}

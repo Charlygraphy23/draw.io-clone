@@ -1,0 +1,18 @@
+@use "../../styles/color.scss" as color;
+
+.sidebar_wrapper {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1080;
+	background-color: color.$sidebar;
+	height: 100%;
+	max-width: 250px;
+	box-shadow: 4px 0px 10px rgba(0, 0, 0, 0.05);
+
+	.description {
+		font-size: 0.9rem;
+		text-align: justify;
+		margin: 1rem 10px;
+	}
+}
