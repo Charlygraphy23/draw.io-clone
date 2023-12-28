@@ -27,13 +27,35 @@
 			background-color: transparent;
 		}
 	}
-	.nodes{
+	.nodes {
 		z-index: inherit;
 		background-color: transparent;
+
+		&.rectangle {
+			width: 2em;
+			height: 1em;
+		}
+
+		&.square {
+			width: 2em;
+			height: 2em;
+		}
+
+		&.circle {
+			width: 2em;
+			height: 2em;
+			border-radius: 50%;
+		}
+
+		&.ellipsis {
+			width: 2em;
+			height: 1em;
+			border-radius: 50%;
+		}
+
+		&.rounded_rectangle {
+			@extend .rectangle;
+			border-radius: 5px;
+		}
 	}
 }
-
-// .rectangle{
-// 	width: inherit  !important;
-// 	height: inherit !important;
-// }

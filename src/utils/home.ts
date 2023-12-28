@@ -26,3 +26,36 @@ export enum NodeType {
 	ELLIPSE = "ellipsis",
 	CIRCLE = "circle",
 }
+
+export const calculateStyle = (type: NodeType): React.CSSProperties => {
+	switch (type) {
+		case NodeType.RECTANGLE:
+			return {
+				minWidth: "2em",
+				minHeight: "1em",
+			};
+		case NodeType.CIRCLE:
+			return {
+				minWidth: "2em",
+				minHeight: "2em",
+				borderRadius: "50%",
+			};
+		case NodeType.ELLIPSE:
+			return {
+				minWidth: "2em",
+				minHeight: "1em",
+				borderRadius: "50%",
+			};
+		case NodeType.ROUNDED_RECTANGLE:
+			return {
+				minWidth: "2em",
+				minHeight: "1em",
+				borderRadius: "5px",
+			};
+		case NodeType.SQUARE:
+			return {
+				minWidth: "2em",
+				minHeight: "2em",
+			};
+	}
+};

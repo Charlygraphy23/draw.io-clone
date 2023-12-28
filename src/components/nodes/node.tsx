@@ -52,10 +52,14 @@ const Node = ({
 		}));
 	};
 
-
 	return (
 		<>
-			<NodeResizer handleStyle={{padding : "2px"}} lineStyle={{padding : "3px"}} color='#ff0071' isVisible={selected} />
+			<NodeResizer
+				handleStyle={{ padding: "2px" }}
+				lineStyle={{ padding: "3px" }}
+				color='#ff0071'
+				isVisible={selected}
+			/>
 			{!inSidebar && <Handle type='target' position={Position.Top} />}
 
 			<div

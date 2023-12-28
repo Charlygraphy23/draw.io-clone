@@ -7,9 +7,9 @@
 	background-color: white;
 	z-index: -1;
 	overflow: hidden;
-
-
-
+	min-width: inherit;
+	min-height: inherit;
+	border-radius: inherit;
 
 	input {
 		width: 100%;
@@ -27,37 +27,36 @@
 
 	.label {
 		font-size: 0.8em;
-	
 	}
 
-	&.rectangle {
-		// min-width: 2em;
-		// min-height: 1em;
-	}
+	// &.rectangle {
+	// 	min-width: 1.7em;
+	// 	min-height: 1em;
+	// }
 
-	&.square {
-		min-width: 2em;
-		min-height: 2em;
-	}
+	// &.square {
+	// 	min-width: 2em;
+	// 	min-height: 2em;
+	// }
 
-	&.circle {
-		min-width: 2em;
-		min-height: 2em;
-		border-radius: 50%;
-	}
+	// &.circle {
+	// 	min-width: 2em;
+	// 	min-height: 2em;
+	// 	border-radius: 50%;
+	// }
 
-	&.ellipsis {
-		min-width: 2em;
-		min-height: 1em;
-		border-radius: 50%;
-	}
+	// &.ellipsis {
+	// 	min-width: 2em;
+	// 	min-height: 1em;
+	// 	border-radius: 50%;
+	// }
 
-	&.rounded_rectangle {
-		@extend .rectangle;
-		border-radius: 5px;
-	}
+	// &.rounded_rectangle {
+	// 	@extend .rectangle;
+	// 	border-radius: 5px;
+	// }
 
-	&.output {
-		border-color: red;
-	}
+	// &.output {
+	// 	border-color: red;
+	// }
 }
