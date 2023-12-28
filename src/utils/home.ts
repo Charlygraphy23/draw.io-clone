@@ -25,6 +25,7 @@ export enum NodeType {
 	ROUNDED_RECTANGLE = "rounded_rectangle",
 	ELLIPSE = "ellipsis",
 	CIRCLE = "circle",
+	TEXT = "text",
 }
 
 export const calculateStyle = (type: NodeType): React.CSSProperties => {
@@ -53,6 +54,18 @@ export const calculateStyle = (type: NodeType): React.CSSProperties => {
 				borderRadius: "5px",
 			};
 		case NodeType.SQUARE:
+			return {
+				minWidth: "2em",
+				minHeight: "2em",
+			};
+
+		case NodeType.TEXT:
+			return {
+				minWidth: "2em",
+				minHeight: "2em",
+			};
+
+		default:
 			return {
 				minWidth: "2em",
 				minHeight: "2em",

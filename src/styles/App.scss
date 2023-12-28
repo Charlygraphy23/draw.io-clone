@@ -57,5 +57,14 @@
 			@extend .rectangle;
 			border-radius: 5px;
 		}
+
+		&.text {
+			width: 2em;
+			height: 1em;
+
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
 	}
 }

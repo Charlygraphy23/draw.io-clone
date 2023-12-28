@@ -23,6 +23,7 @@ import RectangleNode from "../../components/nodes/components/rectangle";
 import EllipseNode from "../../components/nodes/components/ellipse";
 import SquareNode from "../../components/nodes/components/square";
 import RoundedRectangleNode from "../../components/nodes/components/rectangleRounded";
+import TextNode from "../../components/nodes/components/text";
 
 const nodeTypes = {
 	[NodeType.CIRCLE]: CircleNode,
@@ -30,6 +31,7 @@ const nodeTypes = {
 	[NodeType.ELLIPSE]: EllipseNode,
 	[NodeType.SQUARE]: SquareNode,
 	[NodeType.ROUNDED_RECTANGLE]: RoundedRectangleNode,
+	[NodeType.TEXT]: TextNode,
 };
 
 function Home() {

@@ -10,6 +10,7 @@ type Props = {
 	draggable?: boolean;
 	inSidebar?: boolean;
 	selected?: boolean;
+	initialValue?: string;
 };
 
 const Node = ({
@@ -18,10 +19,11 @@ const Node = ({
 	draggable,
 	inSidebar = false,
 	selected = false,
+	initialValue = "",
 }: Props) => {
 	const [state, setState] = useState({
 		showInput: false,
-		value: "",
+		value: initialValue,
 	});
 	const inputRef = useRef<HTMLInputElement>(null);
 
@@ -63,7 +65,7 @@ const Node = ({
 			{!inSidebar && <Handle type='target' position={Position.Top} />}
 
 			<div
-				className={`${style.nodes} ${style[nodeType]} nodes ${nodeType}`}
+				className={`${style.nodes} nodes ${nodeType}`}
 				onClick={handleClick}
 				onDragStart={onDragStart}
 				draggable={draggable}>
