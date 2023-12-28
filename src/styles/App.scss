@@ -26,13 +26,14 @@
 		&::before {
 			background-color: transparent;
 		}
-
-		.MuiAccordionDetails-root {
-			display: grid;
-			grid-template-columns: repeat(4, 1fr);
-			column-gap: 5px;
-			row-gap: 10px;
-			place-items: center;
-		}
+	}
+	.nodes{
+		z-index: inherit;
+		background-color: transparent;
 	}
 }
+
+// .rectangle{
+// 	width: inherit  !important;
+// 	height: inherit !important;
+// }

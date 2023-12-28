@@ -1,5 +1,19 @@
 @use "../../styles/color.scss" as color;
 
+.openSideNav{
+	position: fixed;
+	top: 10%;
+	left: 0;
+	z-index: 1080;
+	height: fit-content;
+	background-color: color.$sidebar;
+	box-shadow: 4px 0px 10px rgba(0, 0, 0, 0.2);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 10px;
+}
+
 .sidebar_wrapper {
 	position: fixed;
 	top: 0;
@@ -9,10 +23,44 @@
 	height: 100%;
 	max-width: 250px;
 	box-shadow: 4px 0px 10px rgba(0, 0, 0, 0.05);
+	transition: left 1s ease-out;
+
+	&.hidden {
+		left: -100%;
+		pointer-events: none;
+	}
 
 	.description {
 		font-size: 0.9rem;
 		text-align: justify;
 		margin: 1rem 10px;
+
+		display: flex;
+		justify-content: space-between;
+		gap: 1rem;
+
+		.hide {
+			display: none;
+			pointer-events: none;
+		}
+	}
+
+	.sidebar__nodes {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 10px;
+		place-items: center;
+		grid-auto-rows: 30px;
+	}
+}
+
+@media screen and (max-width: 800px) {
+	.sidebar_wrapper {
+		.description {
+			.hide {
+				display: block;
+				pointer-events: all;
+			}
+		}
 	}
 }

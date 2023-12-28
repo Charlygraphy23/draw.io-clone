@@ -52,13 +52,14 @@ const Node = ({
 		}));
 	};
 
+
 	return (
 		<>
-			<NodeResizer color='#ff0071' isVisible={selected} />
+			<NodeResizer handleStyle={{padding : "2px"}} lineStyle={{padding : "3px"}} color='#ff0071' isVisible={selected} />
 			{!inSidebar && <Handle type='target' position={Position.Top} />}
 
 			<div
-				className={`${style.nodes} ${style[nodeType]}`}
+				className={`${style.nodes} ${style[nodeType]} nodes ${nodeType}`}
 				onClick={handleClick}
 				onDragStart={onDragStart}
 				draggable={draggable}>
