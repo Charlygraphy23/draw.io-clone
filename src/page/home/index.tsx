@@ -97,6 +97,7 @@ function Home() {
 						edges={edges}
 						onNodesChange={onNodesChange}
 						onEdgesChange={onEdgesChange}
+            onNodeClick={(data , node) => {console.log("Hell Log", data , node)}}
 						onConnect={onConnect}
 						fitView
 						onDragOver={onDragOver}
