@@ -1,0 +1,17 @@
+@use "../../styles/color.scss" as color;
+
+.stylePanel {
+	position: fixed;
+	top: 0;
+	right: 0;
+	z-index: 1080;
+	background-color: color.$sidebar;
+	height: 100%;
+	max-width: 250px;
+	box-shadow: 4px 0px 10px rgba(0, 0, 0, 0.05);
+	transition: left 1s ease-out;
+
+	.wrapper {
+		padding: 10px;
+	}
+}

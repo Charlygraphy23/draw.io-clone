@@ -1,9 +1,10 @@
-import { DragEvent, useCallback, useRef, useState } from "react";
+import { DragEvent, useCallback, useContext, useRef, useState } from "react";
 import ReactFlow, {
 	Background,
 	BackgroundVariant,
 	Connection,
 	Controls,
+	NodeMouseHandler,
 	ReactFlowInstance,
 	ReactFlowProvider,
 	addEdge,
@@ -24,6 +25,8 @@ import EllipseNode from "../../components/nodes/components/ellipse";
 import SquareNode from "../../components/nodes/components/square";
 import RoundedRectangleNode from "../../components/nodes/components/rectangleRounded";
 import TextNode from "../../components/nodes/components/text";
+import StylePanel from "../../components/stylePanel";
+import { Context } from "../../store";
 
 const nodeTypes = {
 	[NodeType.CIRCLE]: CircleNode,
@@ -41,6 +44,7 @@ function Home() {
 	const [reactFlowInstance, setReactFlowInstance] = useState<ReactFlowInstance>(
 		{} as ReactFlowInstance
 	);
+	const { dispatch } = useContext(Context);
 
 	const onConnect = useCallback(
 		(params: Connection) => setEdges((eds) => addEdge(params, eds)),
@@ -83,10 +87,25 @@ function Home() {
 				},
 			};
 
+			dispatch({
+				type: "add",
+				payload: newNode,
+			});
+
 			setNodes((nds) => nds.concat(newNode));
 		},
-		[reactFlowInstance, setNodes]
+		[reactFlowInstance, setNodes, dispatch]
 	);
+
+	const handleNodeClick: NodeMouseHandler = (_, node) => {
+		console.log(node);
+		dispatch({
+			type: "selectedNode",
+			payload: {
+				id: node?.id,
+			},
+		});
+	};
 
 	return (
 		<div className='App'>
@@ -97,13 +116,13 @@ function Home() {
 						edges={edges}
 						onNodesChange={onNodesChange}
 						onEdgesChange={onEdgesChange}
-            onNodeClick={(data , node) => {console.log("Hell Log", data , node)}}
 						onConnect={onConnect}
 						fitView
 						onDragOver={onDragOver}
 						onDrop={onDrop}
 						onInit={setReactFlowInstance}
-						nodeTypes={nodeTypes}>
+						nodeTypes={nodeTypes}
+						onNodeClick={handleNodeClick}>
 						<Controls />
 						{/* <MiniMap /> */}
 						<Background
@@ -115,6 +134,7 @@ function Home() {
 					</ReactFlow>
 				</div>
 				<Sidebar />
+				<StylePanel />
 			</ReactFlowProvider>
 		</div>
 	);
