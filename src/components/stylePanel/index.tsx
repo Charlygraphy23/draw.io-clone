@@ -7,7 +7,6 @@ import { Context } from "../../store";
 const StylePanel = () => {
 	const [value, setValue] = useState(0);
 	const { state } = useContext(Context);
-	console.log(state);
 	const handleChange = (_: React.SyntheticEvent, newValue: number) => {
 		setValue(newValue);
 	};
