@@ -3,6 +3,7 @@ import style from "./style.module.scss";
 import { Box, Tab, Tabs } from "@mui/material";
 import StyleHandler from "./components/styleHandler";
 import { Context } from "../../store";
+import FontHandler from "./components/fontHandler";
 
 const StylePanel = () => {
 	const [value, setValue] = useState(0);
@@ -25,6 +26,7 @@ const StylePanel = () => {
 						</Tabs>
 					</Box>
 					{value === 0 && <StyleHandler />}
+					{value === 1 && <FontHandler />}
 				</Box>
 			</div>
 		</section>

@@ -13,5 +13,30 @@
 
 	.wrapper {
 		padding: 10px;
+
+		.fontHandler {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			gap: 10px;
+			margin: 10px 0px;
+
+			button {
+				padding: 5px 10px;
+				cursor: pointer;
+			}
+
+			.bold {
+				font-weight: 800;
+			}
+
+			.italic {
+				font-style: italic;
+			}
+
+			.underline {
+				text-decoration: underline;
+			}
+		}
 	}
 }
