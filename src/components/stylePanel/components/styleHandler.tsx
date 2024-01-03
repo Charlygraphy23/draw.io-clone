@@ -35,9 +35,6 @@ const StyleHandler = () => {
 		setFillColor(currentColor as string);
 	}, [state?.selectedNodeId]);
 
-	console.log("Updated");
-	console.log("Selected Id", state?.selectedNodeId);
-
 	return (
 		<div className={style.styleHandler}>
 			<FormGroup sx={{ marginTop: "20px" }}>

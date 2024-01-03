@@ -24,10 +24,18 @@
 			button {
 				padding: 5px 10px;
 				cursor: pointer;
+				font-weight: bold;
+				border: none;
+
+				&.active {
+					background: linear-gradient(
+						rgb(197, 236, 255) 0px,
+						rgb(135, 212, 251) 100%
+					);
+				}
 			}
 
 			.bold {
-				font-weight: 800;
 			}
 
 			.italic {

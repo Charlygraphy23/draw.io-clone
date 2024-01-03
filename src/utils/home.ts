@@ -7,7 +7,6 @@ class NodeId {
 	private node_id = 0;
 
 	getId() {
-		console.log("this.node_id", this);
 		this.node_id = this.node_id + 1;
 		return `dndnode_${this.node_id}`;
 	}

@@ -2,12 +2,10 @@ import React, { useContext, useState } from "react";
 import style from "./style.module.scss";
 import { Box, Tab, Tabs } from "@mui/material";
 import StyleHandler from "./components/styleHandler";
-import { Context } from "../../store";
 import FontHandler from "./components/fontHandler";
 
 const StylePanel = () => {
 	const [value, setValue] = useState(0);
-	const { state } = useContext(Context);
 	const handleChange = (_: React.SyntheticEvent, newValue: number) => {
 		setValue(newValue);
 	};
