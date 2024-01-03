@@ -1,5 +1,19 @@
 @use "../../styles/color.scss" as color;
 
+.openStyleBar {
+	position: fixed;
+	top: 10%;
+	right: 0;
+	z-index: 1080;
+	height: fit-content;
+	background-color: color.$sidebar;
+	box-shadow: 4px 0px 10px rgba(0, 0, 0, 0.2);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 10px;
+}
+
 .stylePanel {
 	position: fixed;
 	top: 0;
@@ -8,8 +22,13 @@
 	background-color: color.$sidebar;
 	height: 100%;
 	max-width: 250px;
-	box-shadow: 4px 0px 10px rgba(0, 0, 0, 0.05);
-	transition: left 1s ease-out;
+	box-shadow: 4px 0px 10px rgba(0, 0, 0, 0.5);
+	transition: right 1s ease-out;
+
+	&.hidden {
+		right: -100%;
+		pointer-events: none;
+	}
 
 	.wrapper {
 		padding: 10px;
@@ -28,10 +47,7 @@
 				border: none;
 
 				&.active {
-					background: linear-gradient(
-						rgb(197, 236, 255) 0px,
-						rgb(135, 212, 251) 100%
-					);
+					background: linear-gradient(rgb(197, 236, 255) 0px, rgb(135, 212, 251) 100%);
 				}
 			}
 
@@ -48,3 +64,5 @@
 		}
 	}
 }
+
+

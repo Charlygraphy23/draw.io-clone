@@ -1,6 +1,6 @@
 @use "../../styles/color.scss" as color;
 
-.openSideNav{
+.openSideNav {
 	position: fixed;
 	top: 10%;
 	left: 0;
@@ -56,6 +56,7 @@
 
 @media screen and (max-width: 800px) {
 	.sidebar_wrapper {
+		
 		.description {
 			.hide {
 				display: block;

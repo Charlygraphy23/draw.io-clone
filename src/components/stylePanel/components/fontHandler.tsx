@@ -4,107 +4,131 @@ import { Context } from "../../../store";
 import { EventHandler, debounce } from "../../../utils/home";
 
 const initialState = {
-	bold: false,
-	italic: false,
-	underline: false,
+  bold: false,
+  italic: false,
+  underline: false,
 };
 
 const handleDebounce = debounce((data) => {
-	EventHandler.emit("update-style", data);
+  EventHandler.emit("update-style", data);
 }, 300);
 
 const FontHandler = () => {
-	const { state, dispatch } = useContext(Context);
-	const [fontState, setFontState] = useState(initialState);
+  const { state, dispatch } = useContext(Context);
+  const [fontState, setFontState] = useState(initialState);
+  const [fontColor, setFontColor] = useState("#ffffff");
 
-	const calculateStyle = (type: string) => {
-		const style = state?.nodes?.[state?.selectedNodeId]?.style;
+  const calculateStyle = (type: string) => {
+    const style = state?.nodes?.[state?.selectedNodeId]?.style;
 
-		const obj = {
-			bold: (style?.fontWeight ?? "normal") as string,
-			italic: (style?.fontStyle ?? "normal") as string,
-			underline: (style?.textDecoration ?? "none") as string,
-		};
-		if (type === "bold") {
-			obj.bold = style?.fontWeight === "bold" ? "normal" : "bold";
-		}
-		if (type === "italic") {
-			obj.italic = style?.fontStyle === "italic" ? "normal" : "italic";
-		}
-		if (type === "underline") {
-			obj.underline =
-				style?.textDecoration === "underline" ? "none" : "underline";
-		}
+    const obj = {
+      bold: (style?.fontWeight ?? "normal") as string,
+      italic: (style?.fontStyle ?? "normal") as string,
+      underline: (style?.textDecoration ?? "none") as string,
+    };
+    if (type === "bold") {
+      obj.bold = style?.fontWeight === "bold" ? "normal" : "bold";
+    }
+    if (type === "italic") {
+      obj.italic = style?.fontStyle === "italic" ? "normal" : "italic";
+    }
+    if (type === "underline") {
+      obj.underline =
+        style?.textDecoration === "underline" ? "none" : "underline";
+    }
 
-		calculateState(obj);
-		return obj;
-	};
+    calculateState(obj);
+    return obj;
+  };
 
-	const calculateState = (styleState: {
-		bold: string;
-		italic: string;
-		underline: string;
-	}) => {
-		setFontState((prev) => {
-			const newState = { ...prev };
-			newState.bold = styleState?.bold === "bold";
-			newState.italic = styleState.italic === "italic";
-			newState.underline = styleState.underline === "underline";
-			return newState;
-		});
-	};
+  const calculateState = (styleState: {
+    bold: string;
+    italic: string;
+    underline: string;
+  }) => {
+    setFontState((prev) => {
+      const newState = { ...prev };
+      newState.bold = styleState?.bold === "bold";
+      newState.italic = styleState.italic === "italic";
+      newState.underline = styleState.underline === "underline";
+      return newState;
+    });
+  };
 
-	const handleClick = (type: string) => {
-		const style = calculateStyle(type);
+  const handleClick = (type: string) => {
+    const style = calculateStyle(type);
 
-		dispatch({
-			type: "addStyle",
-			payload: {
-				fontWeight: style?.bold,
-				fontStyle: style?.italic,
-				textDecoration: style?.underline,
-			},
-		});
+    dispatch({
+      type: "addStyle",
+      payload: {
+        fontWeight: style?.bold,
+        fontStyle: style?.italic,
+        textDecoration: style?.underline,
+      },
+    });
 
-		handleDebounce(style);
-	};
+    handleDebounce(style);
+  };
 
-	useEffect(() => {
-		const bold = state?.nodes?.[state?.selectedNodeId]?.style
-			?.fontWeight as string;
-		const italic = state?.nodes?.[state?.selectedNodeId]?.style
-			?.fontStyle as string;
-		const underline = state?.nodes?.[state?.selectedNodeId]?.style
-			?.direction as string;
+  const handleFillChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFontColor(e.target.value);
+    dispatch({
+      type: "addStyle",
+      payload: {
+        color: e.target.value,
+      },
+    });
+    handleDebounce({
+      color: e.target.value,
+    });
+  };
 
-		calculateState({
-			bold,
-			italic,
-			underline,
-		});
-	}, [state?.selectedNodeId]);
+  useEffect(() => {
+    const bold = state?.nodes?.[state?.selectedNodeId]?.style
+      ?.fontWeight as string;
+    const italic = state?.nodes?.[state?.selectedNodeId]?.style
+      ?.fontStyle as string;
+    const underline = state?.nodes?.[state?.selectedNodeId]?.style
+      ?.textDecoration as string;
 
-	return (
-		<div className={style.fontHandler}>
-			<button
-				className={`${style.bold} ${fontState?.bold ? style.active : ""}`}
-				onClick={() => handleClick("bold")}>
-				B
-			</button>
-			<button
-				className={`${style.italic} ${fontState?.italic ? style.active : ""}`}
-				onClick={() => handleClick("italic")}>
-				I
-			</button>
-			<button
-				className={`${style.underline} ${
-					fontState?.underline ? style.active : ""
-				}`}
-				onClick={() => handleClick("underline")}>
-				U
-			</button>
-		</div>
-	);
+    const fontColor =
+      state?.nodes?.[state?.selectedNodeId]?.style?.color ?? "#000000";
+
+    calculateState({
+      bold,
+      italic,
+      underline,
+    });
+
+    setFontColor(fontColor);
+  }, [state?.selectedNodeId]);
+
+  return (
+    <div className={style.fontHandler}>
+      <button
+        className={`${style.bold} ${fontState?.bold ? style.active : ""}`}
+        onClick={() => handleClick("bold")}
+      >
+        B
+      </button>
+      <button
+        className={`${style.italic} ${fontState?.italic ? style.active : ""}`}
+        onClick={() => handleClick("italic")}
+      >
+        I
+      </button>
+      <button
+        className={`${style.underline} ${
+          fontState?.underline ? style.active : ""
+        }`}
+        onClick={() => handleClick("underline")}
+      >
+        U
+      </button>
+
+      <input type="color" value={fontColor} onChange={handleFillChange} />
+    </div>
+  );
 };
 
 export default FontHandler;

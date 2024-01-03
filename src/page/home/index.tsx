@@ -118,7 +118,11 @@ function Home() {
 			setNodes((prev) => {
 				return prev?.map((node) => {
 					if (node.id === state.selectedNodeId) {
-						node.style = state?.nodes[state.selectedNodeId].style;
+						node.style = {
+							width: node.width ?? 0,
+							height: node.height ?? 0,
+							...state?.nodes[state.selectedNodeId].style
+						};
 					}
 
 					return node;
