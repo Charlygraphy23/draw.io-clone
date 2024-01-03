@@ -1,0 +1,20 @@
+.downloadButton {
+    position: fixed;
+    bottom: 5%;
+    right: 5%;
+    z-index: 1081;
+
+    padding: 20px;
+    width: 20px;
+    height: 20px;
+    background-color: blue;
+    color: white;
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+    box-sizing: 0px 0px 30px rgba(black, 0.2);
+}

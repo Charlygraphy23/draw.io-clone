@@ -18,6 +18,7 @@ const CustomNodes = ({ data, ...rest }: Props) => {
 
 	const onDragStart = useCallback(
 		(event: DragEvent<HTMLDivElement>) => {
+			console.log(event)
 			event.dataTransfer.setData("application/reactflow", data?.type);
 			event.dataTransfer.effectAllowed = "move";
 		},
@@ -25,7 +26,7 @@ const CustomNodes = ({ data, ...rest }: Props) => {
 	);
 
 	return (
-		<Node nodeType={type as NodeType} onDragStart={onDragStart} {...rest} />
+		<Node nodeType={type as NodeType} onDragStart={onDragStart} onTouchStart={onDragStart} {...rest} />
 	);
 };
 

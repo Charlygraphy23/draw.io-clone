@@ -17,14 +17,20 @@ const StylePanel = () => {
   return (
     <>
       <div className={style.openStyleBar}>
-        <KeyboardDoubleArrowLeftIcon onClick={() => toggleHidden(false)} />
+        <KeyboardDoubleArrowLeftIcon
+          onClick={() => toggleHidden(false)}
+          sx={{ cursor: "pointer" }}
+        />
       </div>
       <section
         className={`${style.stylePanel} ${isHidden ? style.hidden : ""}`}
       >
         <div className={style.wrapper}>
-		<div onClick={() => toggleHidden()}>
-            <KeyboardDoubleArrowRightIcon className={style.hide} />
+          <div onClick={() => toggleHidden()}>
+            <KeyboardDoubleArrowRightIcon
+              className={style.hide}
+              sx={{ cursor: "pointer" }}
+            />
           </div>
           <Box sx={{ width: "100%" }}>
             <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
