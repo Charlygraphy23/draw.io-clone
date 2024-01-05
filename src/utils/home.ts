@@ -74,7 +74,7 @@ export const EventHandler = {
 	emit: (event: string, data: unknown) => EVENT.emit(event, data),
 	once: (event: string, cb: (args: unknown) => void) => EVENT.once(event, cb),
 	on: <T>(event: string, cb: (args: T) => void) => EVENT.on(event, cb),
-	remove: (event: string, cb: (args: unknown) => void) =>
+	remove: <T>(event: string, cb: (args: T) => void) =>
 		EVENT.removeListener(event, cb),
 };
 

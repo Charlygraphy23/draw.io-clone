@@ -33,7 +33,7 @@ export const Context = createContext({
   state: initialState,
 } as {
   state: typeof initialState;
-  dispatch: Dispatch<{ payload: Record<string, unknown>; type: string }>;
+  dispatch: Dispatch<{ payload: Record<string, string>; type: string }>;
 });
 
 const stateReducer = (
@@ -79,7 +79,9 @@ const Provider = ({ children }: PropsWithChildren) => {
   const [state, dispatch] = useReducer(stateReducer, initialState);
 
   return (
+    <>
     <Context.Provider value={{ state, dispatch }}>{children}</Context.Provider>
+    </>
   );
 };
 

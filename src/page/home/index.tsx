@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import {
   DragEvent,
   TouchEvent,
@@ -97,7 +98,7 @@ function Home() {
 
       dispatch({
         type: "add",
-        payload: newNode,
+        payload: newNode as unknown as Record<string, string>,
       });
 
       setNodes((nds) => nds.concat(newNode));
@@ -112,10 +113,6 @@ function Home() {
     },
     [handleDrop]
   );
-
-  const onNodeDelete = useCallback((data) => {
-      console.log(data)
-  } , [])
 
   const handleNodeClick: NodeMouseHandler = (_, node) => {
     dispatch({
@@ -174,9 +171,9 @@ function Home() {
             onConnect={onConnect}
             fitView
             onDragOver={onDragOver}
-            onNodesDelete={onNodeDelete}
             onDrop={onDrop}
             onInit={(data) => {
+              // @ts-expect-error
               reactFlowInstance.current = data as ReactFlowInstance;
             }}
             nodeTypes={nodeTypes}
