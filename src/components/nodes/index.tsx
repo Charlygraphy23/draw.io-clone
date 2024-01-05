@@ -1,6 +1,7 @@
-import { DragEvent, TouchEvent, useCallback } from "react";
-import { NodeType } from "../../utils/home";
+import { DragEvent, TouchEvent, useCallback, useContext } from "react";
+import { EventHandler, NodeType } from "../../utils/home";
 import Node from "./node";
+import { Context } from "../../store";
 
 type Props = {
   data: {
@@ -17,6 +18,7 @@ const GHOST_ELEMENT_CLASS = "ghostImages";
 
 const CustomNodes = ({ data, ...rest }: Props) => {
   const { type = NodeType.RECTANGLE } = data;
+  const { dispatch } = useContext(Context);
 
   const removeGhostImage = (event: DragEvent<HTMLDivElement>) => {
     const img = new Image();
@@ -71,17 +73,27 @@ const CustomNodes = ({ data, ...rest }: Props) => {
       if (!element) return;
       console.log(element);
 
-      event.dataTransfer.setData("application/reactflow", data?.type);
-      event.dataTransfer.effectAllowed = "move";
+      // event.dataTransfer.setData("application/reactflow", data?.type);
+      // event.dataTransfer.effectAllowed = "move";
       event.dataTransfer.setDragImage(element, 0, 0);
+      dispatch({
+        type: "change-type",
+        payload: {
+          currentType: data?.type,
+        },
+      });
     },
     [data?.type]
   );
 
   const onTouchStart = (event: TouchEvent<HTMLDivElement>) => {
-    // const element = ghostElement(event.);
-    const element = ghostElement(event, true);
-    console.log(element);
+    ghostElement(event, true);
+    dispatch({
+      type: "change-type",
+      payload: {
+        currentType: data?.type,
+      },
+    });
   };
 
   const onDragEnd = () => {
@@ -99,8 +111,9 @@ const CustomNodes = ({ data, ...rest }: Props) => {
     }
   };
 
-  const onTouchEnd = () => {
+  const onTouchEnd = (event: TouchEvent<HTMLElement>) => {
     onDragEnd();
+    EventHandler.emit("onTouchEnd", event);
   };
 
   return (

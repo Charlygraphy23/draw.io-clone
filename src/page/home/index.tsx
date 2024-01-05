@@ -1,10 +1,10 @@
 import {
   DragEvent,
+  TouchEvent,
   useCallback,
   useContext,
   useEffect,
   useRef,
-  useState,
 } from "react";
 import ReactFlow, {
   Background,
@@ -48,11 +48,10 @@ const nodeTypes = {
 
 function Home() {
   const reactFlowWrapper = useRef(null);
+  const reactFlowInstance = useRef<ReactFlowInstance>(null);
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
-  const [reactFlowInstance, setReactFlowInstance] = useState<ReactFlowInstance>(
-    {} as ReactFlowInstance
-  );
+
   const { dispatch, state } = useContext(Context);
 
   const onConnect = useCallback(
@@ -65,22 +64,23 @@ function Home() {
     event.dataTransfer.dropEffect = "move";
   }, []);
 
-  const onDrop = useCallback(
-    (event: DragEvent<HTMLDivElement>) => {
-      event.preventDefault();
-      const type = event.dataTransfer.getData("application/reactflow");
+  const handleDrop = useCallback(
+    (clientX: number, clientY: number) => {
+      const type = state.currentType;
 
       // check if the dropped element is valid
       if (typeof type === "undefined" || !type) {
         return;
       }
 
+      if (!reactFlowInstance.current) return;
+
       // reactFlowInstance.project was renamed to reactFlowInstance.screenToFlowPosition
       // and you don't need to subtract the reactFlowBounds.left/top anymore
       // details: https://reactflow.dev/whats-new/2023-11-10
-      const position = reactFlowInstance.screenToFlowPosition({
-        x: event.clientX,
-        y: event.clientY,
+      const position = reactFlowInstance.current.screenToFlowPosition({
+        x: clientX,
+        y: clientY,
       });
 
       const ID = NodeObject.getId();
@@ -102,8 +102,20 @@ function Home() {
 
       setNodes((nds) => nds.concat(newNode));
     },
-    [reactFlowInstance, setNodes, dispatch]
+    [dispatch, reactFlowInstance, setNodes, state?.currentType]
   );
+
+  const onDrop = useCallback(
+    (event: DragEvent<HTMLDivElement>) => {
+      event.preventDefault();
+      handleDrop(event.clientX, event.clientY);
+    },
+    [handleDrop]
+  );
+
+  const onNodeDelete = useCallback((data) => {
+      console.log(data)
+  } , [])
 
   const handleNodeClick: NodeMouseHandler = (_, node) => {
     dispatch({
@@ -113,6 +125,15 @@ function Home() {
       },
     });
   };
+
+  const onTouchEnd = useCallback(
+    (event: TouchEvent<HTMLDivElement>) => {
+      event.preventDefault();
+      const [touch] = Array.from(event.changedTouches);
+      handleDrop(touch.clientX, touch.clientY);
+    },
+    [handleDrop]
+  );
 
   useEffect(() => {
     const fn = () => {
@@ -131,12 +152,15 @@ function Home() {
       });
     };
 
+    EventHandler.on("onTouchEnd", onTouchEnd);
+
     EventHandler.on("update-style", fn);
 
     return () => {
       EventHandler.remove("update-style", fn);
+      EventHandler.remove("onTouchEnd", onTouchEnd);
     };
-  }, [setNodes, state]);
+  }, [onTouchEnd, setNodes, state]);
 
   return (
     <div className="App">
@@ -150,8 +174,11 @@ function Home() {
             onConnect={onConnect}
             fitView
             onDragOver={onDragOver}
+            onNodesDelete={onNodeDelete}
             onDrop={onDrop}
-            onInit={setReactFlowInstance}
+            onInit={(data) => {
+              reactFlowInstance.current = data as ReactFlowInstance;
+            }}
             nodeTypes={nodeTypes}
             onNodeClick={handleNodeClick}
           >
