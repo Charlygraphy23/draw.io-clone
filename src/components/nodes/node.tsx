@@ -6,8 +6,6 @@ import { flushSync } from "react-dom";
 
 type Props = {
 	nodeType: NodeType;
-	onDragStart?: React.DragEventHandler<HTMLDivElement>;
-	onTouchStart?: React.DragEventHandler<HTMLDivElement>;
 	draggable?: boolean;
 	inSidebar?: boolean;
 	selected?: boolean;
@@ -16,12 +14,10 @@ type Props = {
 
 const Node = ({
 	nodeType,
-	onDragStart,
 	draggable,
 	inSidebar = false,
 	selected = false,
 	initialValue = "",
-	onTouchStart
 }: Props) => {
 	const [state, setState] = useState({
 		showInput: false,
@@ -69,8 +65,6 @@ const Node = ({
 			<div
 				className={`${style.nodes} nodes ${nodeType}`}
 				onClick={handleClick}
-				onDragStart={onDragStart}
-				onTouchStart={onTouchStart}
 				draggable={draggable}>
 				{state?.showInput ? (
 					<input

@@ -12,6 +12,47 @@
 	height: 100%;
 }
 
+%sidebarNodes {
+	z-index: inherit;
+	background-color: transparent;
+
+	&.rectangle {
+		width: 2em;
+		height: 1em;
+	}
+
+	&.square {
+		width: 2em;
+		height: 2em;
+	}
+
+	&.circle {
+		width: 2em;
+		height: 2em;
+		border-radius: 50%;
+	}
+
+	&.ellipsis {
+		width: 2em;
+		height: 1em;
+		border-radius: 50%;
+	}
+
+	&.rounded_rectangle {
+		@extend .rectangle;
+		border-radius: 5px;
+	}
+
+	&.text {
+		width: 2em;
+		height: 1em;
+
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+}
+
 .sidebar {
 	.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiAccordion-root.MuiAccordion-rounded.MuiAccordion-gutters {
 		background-color: color.$sidebar;
@@ -28,43 +69,15 @@
 		}
 	}
 	.nodes {
-		z-index: inherit;
-		background-color: transparent;
-
-		&.rectangle {
-			width: 2em;
-			height: 1em;
-		}
-
-		&.square {
-			width: 2em;
-			height: 2em;
-		}
-
-		&.circle {
-			width: 2em;
-			height: 2em;
-			border-radius: 50%;
-		}
-
-		&.ellipsis {
-			width: 2em;
-			height: 1em;
-			border-radius: 50%;
-		}
-
-		&.rounded_rectangle {
-			@extend .rectangle;
-			border-radius: 5px;
-		}
-
-		&.text {
-			width: 2em;
-			height: 1em;
-
-			display: flex;
-			justify-content: center;
-			align-items: center;
-		}
+		@extend %sidebarNodes;
 	}
+}
+
+.ghostImages {
+	@extend %sidebarNodes;
+	overflow: hidden !important;
+	background-color: white !important;
+	z-index: 1083 !important;
+	min-height: auto !important;
+	font-size: 1rem;
 }
